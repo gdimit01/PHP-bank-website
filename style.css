@@ -1,0 +1,98 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: wheat;
+  text-align: center;
+  color: royalblue;
+}
+
+h1 {
+  font-size: 36px;
+  margin: 20px 0;
+}
+
+p {
+  color: peru;
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+th, td {
+  border: 2px solid olivedrab;
+  padding: 8px;
+  text-align: left;
+}
+
+form {
+  margin: 20px auto;
+  width: 50%;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="button"],
+input[type="submit"] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid rosybrown;
+  border-radius: 4px;
+  background-color: antiquewhite;
+  color: darkgreen;
+  cursor: pointer;
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  background-color: gold;
+  color: #333;
+}
+
+nav {
+  background-color: blanchedalmond;
+  display: flex;
+  justify-content: center;
+}
+
+nav a {
+  color: olivedrab;
+  text-decoration: none;
+  padding: 20px;
+}
+
+nav a:hover {
+  background-color: gold;
+  color: #333;
+}
+
+.button {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid rosybrown;
+  border-radius: 4px;
+  background-color: antiquewhite;
+  color: darkgreen;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: gold;
+  color: #333;
+}
