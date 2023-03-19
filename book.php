@@ -62,6 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php if (isset($message)) : ?>
     <h1>Banking COMP8870</h1>
     <h2><?php echo $message; ?></h2>
+    <!-- Include the image when the purchase is successful -->
+    <img src="images/thanks.png" alt="thanks" width="200" height="200">
     <form action="accounts.php" method="GET">
         <input type="hidden" name="name" value="<?php echo urlencode($name); ?>">
         <input type="hidden" name="cid" value="<?php echo $cid; ?>">
@@ -72,9 +74,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="hidden" name="purchase more">
         <input type="submit" value="Purchase More">
     </form>
+    <div class='button-group'>
+        <form action='index.php' method='POST'>
+            <input type='hidden' name='exit'>
+            <input class='button' type='submit' value='Exit'>
+        </form>
+    </div>
 
     <?php else : ?>
     <h1>Buy Product</h1>
+
     <form action="book.php" method="POST">
         <input type="radio" id="product1" name="product" value="1">
         <label for="product1">Product 1</label><br>

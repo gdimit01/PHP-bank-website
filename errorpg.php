@@ -13,6 +13,7 @@
 <body>
     <h1>Error</h1>
     <p><?php echo $_GET['message']; ?></p>
+    <img src="images/error.png" alt="error" width="200" height="200">
     <form action="index.php" method="POST">
         <input type="hidden" name="home page">
         <input type="submit" value="Home Page">

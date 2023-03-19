@@ -4,9 +4,11 @@
 <head>
     <title>Index</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 
 <body>
+
     <?php
     session_start();
     require('dbconnect.php');
@@ -50,6 +52,7 @@
     }
 ?>
     <h1>Banking COMP8870</h1>
+    <img src="images/computer.png" alt="computer" width="200" height="200">
     <?php if (isset($accounts) && count($accounts) > 0): ?>
     <table>
         <tr>

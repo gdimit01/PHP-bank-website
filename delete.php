@@ -43,25 +43,3 @@ if (isset($_POST['acid'])) {
 }
 
 ?>
-
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Delete Account</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-
-<body>
-    <h1><?php echo $message; ?></h1>
-    <form action="accounts.php" method="GET">
-        <button type="submit">Accounts Page</button>
-    </form>
-    <form action="index.php" method="POST">
-        <input type="hidden" name="exit">
-        <button type="submit">Home Page</button>
-    </form>
-</body>
-
-</html>

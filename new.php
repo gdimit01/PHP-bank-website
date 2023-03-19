@@ -13,25 +13,6 @@ if (isset($_SESSION['CID'])) {
     // handle the case where the CID is not set
 }
 
-
-// function connect() { 
-//     $host = 'dragon.ukc.ac.uk'; 
-//     $dbname = 'gd353'; 
-//     $user = 'gd353'; 
-//     $pwd = 'o2ormus';
-
-//     $dsn = "mysql:host=$host;dbname=$dbname";
-//     $options = [
-//         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-//     ];
-//     try { 
-//         $conn = new PDO($dsn, $user, $pwd, $options); // use $dsn instead of the connection string
-//         return $conn; 
-//     } catch (PDOException $e) { 
-//         echo "PDOException: ".$e->getMessage(); 
-//     } 
-// } 
-
 $conn = connect(); 
 
 try { 
@@ -70,22 +51,42 @@ try {
     </table>
     <br>
 
+    <style>
+    .currency-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .currency-option {
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .currency-option input {
+        margin-right: 5px;
+    }
+    </style>
+
     <!-- adding currency options -->
-    <div>
-        <label for='any'>Any</label>
-        <input type='radio' name='currency' value='Any' id='any' onchange='handleCurrencyChange(false)' required>
-        <div>
+    <div class="currency-container">
+        <div class="currency-option">
+            <label for='any'>Any</label>
+            <input type='radio' name='currency' value='Any' id='any' onchange='handleCurrencyChange(false)' required>
+        </div>
+        <div class="currency-option">
             <label for='usd'>USD</label>
             <input type='radio' name='currency' value='USD' id='usd' onchange='handleCurrencyChange()' required>
         </div>
-        <div>
-            <label for='eur'>EUR</label>
-            <input type='radio' name='currency' value='EUR' id='eur' onchange='handleCurrencyChange()' required>
-        </div>
-        <div>
+        <div class="currency-option">
             <label for='gbp'>GBP</label>
             <input type='radio' name='currency' value='GBP' id='gbp' onchange='handleCurrencyChange()' required>
         </div>
+        <div class="currency-option">
+            <label for='eur'>EUR</label>
+            <input type='radio' name='currency' value='EUR' id='eur' onchange='handleCurrencyChange()' required>
+        </div>
+
     </div>
     <br>
 
