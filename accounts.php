@@ -12,9 +12,24 @@ session_start();
 
     require('dbconnect.php');
 
-if (isset($_GET['name']) && isset($_GET['cid'])) {
-    $name = $_GET['name'];
-    $cid = $_GET['cid'];
+/* This is checking if the name and cid are set. If they are, it will set the name and cid to the
+    post name and cid. Then it will connect to the database. Then it will check if the cid matches
+    the name. If it doesn't, it will throw an exception. If it does, it will set the session cid to
+    the cid. */
+   if (isset($_POST['name']) && isset($_POST['cid'])) {
+    $_SESSION['cid'] = $_POST['cid'];
+    $_SESSION['name'] = $_POST['name'];
+    header('Location: accounts.php');
+    }
+
+    /* This is checking if the cid and name are set. If they are, it will set the cid and name to the
+    session cid and name. If they aren't, it will redirect to the error page. */
+    if (isset($_SESSION['cid']) && isset($_SESSION['name'])) {
+        $cid = $_SESSION['cid'];
+        $name = $_SESSION['name'];
+    } else {
+        header('Location: errorpg.php');
+    }
     $conn = connect();
 
     try {
