@@ -5,9 +5,12 @@
 
 <?php //define connection once and you don't have to call it again
 session_start();
-$name = "Sally"; // default value for name
-$cid = $_SESSION['CID']; //assuming the customer id is stored in a session variable named CID
-require('dbconnect.php');
+
+  
+    $name = isset($_POST['name']) ? $_POST['name'] : '?';
+    $cid = isset($_SESSION['CID']) ? $_SESSION['CID'] : '?';
+
+    require('dbconnect.php');
 
 if (isset($_GET['name']) && isset($_GET['cid'])) {
     $name = $_GET['name'];
