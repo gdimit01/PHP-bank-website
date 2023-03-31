@@ -10,25 +10,16 @@
 <body>
 
     <?php
+    
     session_start();
+
+    
     require('dbconnect.php');
 
     // check if name and customer ID are set in the URL parameters
-    if (isset($_GET['name']) && isset($_GET['cid'])) {
-        $name = $_GET['name'];
-        $cid = $_GET['cid'];
-
-        // Check if user is logged in
-        if (!isset($_SESSION['CID'])) {
-            header("Location: index.php");
-            exit();
-        }
-
-        // Check if submitted customer ID matches session value
-        if ($cid != $_SESSION['CID']) {
-            header("Location: index.php?error=invalid_cid");
-            exit();
-        }
+    if (isset($_POST['name']) && isset($_POST['cid'])) {
+        $name = $_POST['name'];
+        $cid = $_POST['cid'];
 
         try {
             // Query for customer
@@ -36,9 +27,6 @@
             $stmt->execute([$name, $cid]);
             $customer = $stmt->fetch();
 
-            if (!$customer) {
-                throw new Exception("Customer ID does not match with the Name.");
-            }
 
             // Query for accounts
             $stmt = $conn->prepare("SELECT * FROM Accounts JOIN Jurisdictions ON Accounts.JID = Jurisdictions.JID WHERE Name = ? AND CID = ?");
@@ -49,10 +37,14 @@
         } catch(Exception $e) {
             echo "Error: " . $e->getMessage();
         }
+
     }
+
 ?>
     <h1>Banking COMP8870</h1>
     <img src="images/computer.png" alt="computer" width="200" height="200">
+    <!-- /* Checking if the accounts variable is set and if the count of the accounts is greater than 0. If
+    it is, it will display the table. If not, it will display the else statement. */ -->
     <?php if (isset($accounts) && count($accounts) > 0): ?>
     <table>
         <tr>
@@ -73,9 +65,10 @@
     <?php else: ?>
     <p>Please enter your name and customer ID</p>
     <?php endif; ?>
+    <!-- /* This is the form that the user will use to enter their name and customer ID. */ -->
     <div class="button-group">
 
-        <form action="accounts.php" method="GET" onsubmit="return validate()">
+        <form action="accounts.php" method="POST" onsubmit="return validate()">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" value="Sally"><br><br>
             <label for="cid">Customer ID:</label>
@@ -85,6 +78,11 @@
         </form>
 
         <script>
+        /**
+         * The function validates the input of the user
+         * 
+         * @return a boolean value.
+         */
         function validate() {
             const cidInput = document.getElementById("cid");
             const cidError = document.getElementById("cid-error");
@@ -99,6 +97,10 @@
             }
         }
 
+        /**
+         * If the input is not a number, set the custom validity to the input value plus a message.
+         * Otherwise, set the custom validity to nothing
+         */
         function check(input) {
             if (isNaN(input.value)) {
                 input.setCustomValidity('"' + input.value + '" is not a number.');
@@ -107,10 +109,6 @@
             }
         }
         </script>
-
-
-
-
 </body>
 
 </html>
