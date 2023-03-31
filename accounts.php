@@ -51,13 +51,23 @@ session_start();
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        //displaying the results in a table
-        echo "<h1>Banking COMP8870</h1>";
-        echo "<h2>Hi " . $name . "! Here is a summary of your accounts:</h2>";
-        echo "<table>";
-        echo "<tr><th>Account Number</th><th>Product</th><th>Balance</th><th>Rate</th><th>Action</th></tr>";
+        /* This is checking the result and setting the symbol to an empty string. Then it is setting
+        the balance to the row balance. Then it is checking if the name is equal to saving usd,
+        chequing usd, saving gbp, or saving euro. If it is, it will set the symbol to the currency.
+        Then it will echo the table row with the acid, name, balance, and rate. */
         foreach ($result as $row) {
-            echo "<tr data-acid='{$row['ACID']}'><td>" . $row['ACID'] . "</td><td>" . $row['Name'] . "</td><td>" . $row['Balance'] . " USD</td><td>" . $row['Rate'] . "</td><td><button class='delete-btn'>Delete</button></td></tr>";
+            $symbol = '';
+            $balance = $row['Balance'];
+            if ($row['Name'] === 'Saving USD') {
+                $symbol = 'USD';
+            } else if ($row['Name'] === 'Chequing USD') {
+                $symbol = 'USD';
+            } else if ($row['Name'] === 'Saving GBP') {
+                $symbol = 'GBP';
+            } else if ($row['Name'] === 'Saving Euro') {
+                $symbol = 'Euro';
+            }
+            echo "<tr data-acid='{$row['ACID']}'><td>" . $row['ACID'] . "</td><td>" . $row['Name'] . "</td><td>" . $balance . " " . $symbol . "</td><td>" . $row['Rate']; 
         }
         echo "</table>";
 
