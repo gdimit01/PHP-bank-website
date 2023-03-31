@@ -7,11 +7,23 @@ session_start();
 
 require('dbconnect.php');
 
-if (isset($_SESSION['CID'])) {
-    $cid = $_SESSION['CID'];
-} else {
-    // handle the case where the CID is not set
-}
+/* This is checking if the CID is set in the session. If it is, it sets the  variable to the CID in
+the session. If it is not, it handles the case where the CID is not set. */
+if (isset($_POST['name']) && isset($_POST['cid'])) {
+    $_SESSION['cid'] = $_POST['cid'];
+    $_SESSION['name'] = $_POST['name'];
+    header('Location: new.php');
+    }
+
+    /* This is checking if the CID and name are set in the session. If they are, it sets the variables
+    to the CID and name in the session. If they are not, it handles the case where the CID and name
+    are not set. */
+    if (isset($_SESSION['cid']) && isset($_SESSION['name'])) {
+        $cid = $_SESSION['cid'];
+        $name = $_SESSION['name'];
+    } else {
+        header('Location: errorpg.php?message=An%20error%20has%20occurred');
+    }
 
 $conn = connect(); 
 
