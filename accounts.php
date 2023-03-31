@@ -68,7 +68,7 @@ session_start();
         header('Location: errorpg.php?message=' . urlencode($e->getMessage()));
         exit();
     }
-}
+
 ?>
 
 <!-- adding buttons for navigation -->
