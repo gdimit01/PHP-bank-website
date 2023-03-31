@@ -98,3 +98,17 @@ nav a:hover {
   color: #333;
 }
 
+.currency-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .currency-option {
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .currency-option input {
+        margin-right: 5px;
+    }
