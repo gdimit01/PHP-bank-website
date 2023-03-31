@@ -88,10 +88,12 @@ session_start();
         <input type="submit" value="New">
     </form>
 
-    <form action="index.php" method="POST">
-        <input type="hidden" name="exit">
-        <input type="submit" value="Exit">
-    </form>
+    <!-- / This is checking if the user wants to exit. If they do, it will destroy the session. */ -->
+        <form action="session_destroy.php" method="POST" id="exit-form"
+            onsubmit="return confirm('Are you sure you want to exit?')">
+            <input type="hidden" name="exit">
+            <input type="submit" value="Exit">
+        </form>
 </div>
 <!-- add AJAX script for deleting rows -->
 <script>
