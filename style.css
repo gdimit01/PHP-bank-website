@@ -27,7 +27,8 @@ table {
   width: 40%;
 }
 
-th, td {
+th,
+td {
   border: 2px solid olivedrab;
   padding: 8px;
   text-align: left;
@@ -99,16 +100,16 @@ nav a:hover {
 }
 
 .currency-container {
-        display: flex;
-        flex-wrap: wrap;
-    }
+  display: flex;
+  flex-wrap: wrap;
+}
 
-    .currency-option {
-        margin-right: 10px;
-        display: flex;
-        align-items: center;
-    }
+.currency-option {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
 
-    .currency-option input {
-        margin-right: 5px;
-    }
+.currency-option input {
+  margin-right: 5px;
+}
