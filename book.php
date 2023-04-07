@@ -26,7 +26,7 @@ to the session CID and the product that was posted. */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cid = $_SESSION['CID'];
     $product = $_POST['product'];
-
+    
     // insert new account for the current user
     $host = 'dragon.ukc.ac.uk';
     $dbname = 'gd353';
@@ -63,47 +63,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Buy Product</title>
-</head>
 
 <body>
-    <?php if (isset($message)) : ?>
-    <h1>Banking COMP8870</h1>
-    <h2><?php echo $message; ?></h2>
-    <!-- Include the image when the purchase is successful -->
-    <img src="images/thanks.png" alt="thanks" width="200" height="200">
-    <form action="accounts.php" method="GET">
-        <input type="hidden" name="name" value="<?php echo urlencode($name); ?>">
-        <input type="hidden" name="cid" value="<?php echo $cid; ?>">
-        <input type="submit" value="Account">
-    </form>
-
-    <form action="new.php" method="POST">
-        <input type="hidden" name="purchase more">
-        <input type="submit" value="Purchase More">
-    </form>
-    <div class='button-group'>
-        <form action='index.php' method='POST'>
-            <input type='hidden' name='exit'>
-            <input class='button' type='submit' value='Exit'>
-        </form>
-    </div>
-
-    <?php else : ?>
-    <h1>Buy Product</h1>
-
-    <form action="book.php" method="POST">
-        <input type="radio" id="product1" name="product" value="1">
-        <label for="product1">Product 1</label><br>
-        <input type="radio" id="product2" name="product" value="2">
-        <label for="product2">Product 2</label><br>
-        <button type="submit">Buy</button>
-    </form>
-    <?php endif; ?>
+    <!-- This is checking if the message is set and if it is then it is displaying the message, the
+    *image, the account button, the purchase more button and the exit button. */ -->
+    <?php
+    if (isset($message)) {
+        echo '<h1>Banking COMP8870</h1>';
+        echo '<h2>' . $message . '</h2>';
+        echo '<img src="images/thanks.png" alt="thanks" width="200" height="200">';
+        echo '<form action="accounts.php" method="POST">';
+        echo '<input type="hidden" name="name" value="' . urlencode($name) . '">';
+        echo '<input type="hidden" name="cid" value="' . $cid . '">';
+        echo '<input type="submit" value="Account">';
+        echo '</form>';
+        echo '<form action="new.php" method="POST">';
+        echo '<input type="hidden" name="purchase more">';
+        echo '<input type="submit" value="Purchase More">';
+        echo '</form>';
+        echo '<div class="button-group">';
+        echo '<form action="session_destroy.php" method="POST" id="exit-form" onsubmit="return confirm(\'Are you sure you want to exit?\')">';
+        echo '<input type="hidden" name="exit">';
+        echo '<input class="button" type="submit" value="Exit">';
+        echo '</form>';
+        echo '</div>';
+    }
+    ?>
 </body>
 
 </html>
