@@ -5,12 +5,24 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['CID'])) {
-    header('Location: errorpg.php?message=Please%20log%20in%20to%20buy%20a%20product');
-    
+/* This is checking if the CID and Name are set in the post and if they are then it is setting the
+session CID and Name to the post CID and Name and then redirecting the user to the accounts page. */
+if (isset($_POST['CID']) && isset($_POST['Name'])){
+    $_SESSION['CID'] = $_POST['CID'];
+    $_SESSION['Name'] = $_POST['Name'];
+    header('Location: accounts.php');
     exit();
 }
 
+/* This is checking if the CID is set in the session and if it is not then it is redirecting the user
+to the error page with the message "Please log in to buy a product". */
+if (!isset($_SESSION['CID'])) {
+    header('Location: errorpg.php?message=Please%20log%20in%20to%20buy%20a%20product');
+    exit();
+}
+
+/* This is checking if the request method is POST and if it is then it is setting the CID and product
+to the session CID and the product that was posted. */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cid = $_SESSION['CID'];
     $product = $_POST['product'];
