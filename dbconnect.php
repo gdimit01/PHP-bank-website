@@ -3,7 +3,7 @@ function connect() {
     $host = 'localhost'; 
     $dbname = 'db_bank'; 
     $user = 'php'; 
-    $pwd = '1980';
+    $pwd = 'xxx';
 
     $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4"; // Added charset for better character support
     $options = [
