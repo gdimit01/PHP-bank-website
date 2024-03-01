@@ -1,45 +1,44 @@
 <?php
+session_start();
+require('dbconnect.php');
 
-if (isset($_POST['acid'])) {
+header('Content-Type: application/json'); // Indicate JSON response
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acid'])) {
     $acid = $_POST['acid'];
 
-    // Connect to the database
-    $host = 'dragon.ukc.ac.uk';
-    $dbname = 'gd353';
-    $user = 'gd353';
-    $pwd = 'o2ormus';
-    $dsn = "mysql:host=$host;dbname=$dbname";
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ];
     try {
-        $conn = new PDO($dsn, $user, $pwd, $options);
-    } catch (PDOException $e) {
-        echo "PDOException: " . $e->getMessage();
-        die();
-    }
+        $conn = connect();
+        if (!$conn) {
+            throw new Exception("Connection failed.");
+        }
 
-    // Delete the row from the database
-    try {
+        // Delete the row from the database
         $stmt = $conn->prepare("DELETE FROM Accounts WHERE ACID = :acid");
-        $stmt->bindValue(':acid', $acid);
+        $stmt->bindParam(':acid', $acid, PDO::PARAM_INT);
         $stmt->execute();
-        echo "success";
+
+        // Check if the deletion was successful
+        if ($stmt->rowCount() > 0) {
+            echo json_encode(['status' => 'success', 'message' => 'Account successfully deleted']);
+        } else {
+            // No rows affected, meaning the account wasn't found or already deleted
+            http_response_code(404); // Not Found
+            echo json_encode(['status' => 'error', 'message' => 'Account not found or already deleted']);
+        }
     } catch (PDOException $e) {
-        echo "PDOException: " . $e->getMessage();
-        die();
+        http_response_code(500); // Internal Server Error
+        echo json_encode(['status' => 'error', 'message' => "Error: " . $e->getMessage()]);
+    } catch (Exception $e) {
+        http_response_code(500); // Internal Server Error
+        echo json_encode(['status' => 'error', 'message' => "Error: " . $e->getMessage()]);
+    } finally {
+        if ($conn) {
+            $conn = null; // Close the database connection
+        }
     }
-
-    // Get the maximum account ID from the Accounts table
-    $stmt = $conn->query("SELECT MAX(ACID) FROM Accounts");
-    $max_acid = $stmt->fetchColumn();
-
-    // Reset the auto-increment value for the Accounts table
-    $stmt = $conn->prepare("ALTER TABLE Accounts AUTO_INCREMENT = :max_acid");
-    $stmt->bindValue(':max_acid', $max_acid);
-    $stmt->execute();
-
-    $conn = null;
+} else {
+    http_response_code(400); // Bad Request
+    echo json_encode(['status' => 'error', 'message' => 'Request method not allowed or missing account ID.']);
 }
-
 ?>
